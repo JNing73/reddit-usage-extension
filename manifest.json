@@ -2,7 +2,8 @@
   "manifest_version": 3,
   "version": "1.0",
   "permissions": [
-    "activeTab"
+    "activeTab",
+    "storage"
   ],
   "name": "Reddit Stats Tracker",
   "icons": {
