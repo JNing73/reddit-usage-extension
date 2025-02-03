@@ -1,14 +1,23 @@
 {
-    "manifest_version": 3,
-    "version": "1.0",
-    "name": "Reddit Stats Tracker",
-    "icons": {
-        "16": "icon.png",
-        "32": "icon.png",
-        "48": "icon.png",
-        "128": "icon.png"
-    },
-    "action": {
-        "default_popup": "index.html"
+  "manifest_version": 3,
+  "version": "1.0",
+  "permissions": [
+    "activeTab"
+  ],
+  "name": "Reddit Stats Tracker",
+  "icons": {
+    "16": "icon.png",
+    "32": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://www.reddit.com/*"],
+      "js": ["content.js"]
     }
+  ],
+  "action": {
+    "default_popup": "index.html"
+  }
 }
