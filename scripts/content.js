@@ -10,12 +10,34 @@ function delay(ms) {
 }
 
 function getStoredTotalTime() {
-  storedTime = localStorage.getItem(totalTimeKey) ?? 0;
-  // initialise local storage value-pair for this app
-  if (storedTime == 0) {
-    localStorage.setItem(totalTimeKey, storedTime);
-  }
-  return storedTime;
+  return new Promise((resolve, reject) => {
+    chrome.storage.local.get(totalTimeKey, (result) => {
+      if (chrome.runtime.lastError) {
+        reject(chrome.runtime.lastError);
+      } else {
+        let res = result[totalTimeKey];
+        if (res === undefined) {
+          chrome.storage.local.set({ [totalTimeKey]: 0 }, () => {
+            resolve(0);
+          });
+        } else {
+          resolve(res);
+        }
+      }
+    });
+  });
+}
+
+function setStoredTime(value) {
+  return new Promise((resolve, reject) => {
+    if (chrome.runtime.lastError) {
+      reject(chrome.runtime.lastError);
+    } else {
+      chrome.storage.local.set({ [totalTimeKey]: value }, () => {
+        resolve();
+      });
+    }
+  });
 }
 
 async function startActiveTracking() {
@@ -28,12 +50,12 @@ async function startActiveTracking() {
   while (active) {
         oneActiveInstace = true;
         await delay(5000); // Count in 5-second increments
-        let totalTime = Number(getStoredTotalTime());
+        let totalTime = await getStoredTotalTime();
         
         // Check the active status again before writing to storage
         if (active) {
           totalTime += 5;
-          localStorage.setItem(totalTimeKey, totalTime);
+          await setStoredTime(totalTime);
           console.log(totalTime);
         }
     }
@@ -48,4 +70,15 @@ document.addEventListener("visibilitychange", function () {
     }
 });
 
-startActiveTracking();
+
+async function main() {
+  try {
+    chrome.storage.local.clear();
+    startActiveTracking();
+  }
+  catch(error) {
+    console.log(error);
+  }
+}
+
+main();
