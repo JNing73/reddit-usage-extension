@@ -2,8 +2,6 @@ console.log("Content Script Triggered Correctly");
 
 const totalTimeKey = "totalRedditTime";
 
-localStorage.clear();
-
 let active = true;
 let oneActiveInstace = false;
 
@@ -31,9 +29,13 @@ async function startActiveTracking() {
         oneActiveInstace = true;
         await delay(5000); // Count in 5-second increments
         let totalTime = Number(getStoredTotalTime());
-        totalTime += 5;
-        localStorage.setItem(totalTimeKey, totalTime);
-        console.log(totalTime);
+        
+        // Check the active status again before writing to storage
+        if (active) {
+          totalTime += 5;
+          localStorage.setItem(totalTimeKey, totalTime);
+          console.log(totalTime);
+        }
     }
   oneActiveInstace = false;
   console.log("Current instance has finished")
