@@ -1,5 +1,4 @@
-# reddit-stats-extension
-
+# Reddit Usage Tracker Chrome Extension
 
 ## How to setup:
 - Clone or download the repo to your local machine
