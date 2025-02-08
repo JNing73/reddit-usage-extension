@@ -73,7 +73,7 @@ document.addEventListener("visibilitychange", function () {
 
 async function main() {
   try {
-    chrome.storage.local.clear();
+    // chrome.storage.local.clear();
     startActiveTracking();
   }
   catch(error) {
