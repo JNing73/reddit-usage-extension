@@ -1,4 +1,5 @@
 const totalTimeKey = "totalRedditTime";
+const noTimeYetMessage = "nothing yet";
 
 const totalDisplayEl = document.getElementById("total-time-display");
 
@@ -10,7 +11,7 @@ function getStoredTotalTime() {
       } else {
         let res = result[totalTimeKey];
         if (res === undefined) {
-            resolve("nothing yet");
+            resolve(noTimeYetMessage);
         } else {
           resolve(res);
         }
@@ -19,10 +20,23 @@ function getStoredTotalTime() {
   });
 }
 
+function generateTotalTimeMessage(totalTime) {
+  console.log("generateTotalTimeMessage called");
+  let base = "Total time spent on reddit:";
+  let displayMessage;
+  if (totalTime === noTimeYetMessage) {
+    displayMessage = `${base} ${totalTime}`;
+  }
+  else {
+    displayMessage = `${base} ${totalTime} seconds`;
+  }
+  totalDisplayEl.innerHTML = displayMessage;
+}
+
 async function main() {
   try {
     let totalTime = await getStoredTotalTime();
-    totalDisplayEl.innerHTML = `Total time spent on reddit: ${totalTime} seconds`;
+    generateTotalTimeMessage(totalTime);
   } catch (error) {
     console.log(error);
   }
