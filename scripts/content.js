@@ -1,5 +1,3 @@
-console.log("Content Script Triggered Correctly");
-
 const totalTimeKey = "totalRedditTime";
 
 let active = true;
