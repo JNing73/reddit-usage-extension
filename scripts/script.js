@@ -1,7 +1,14 @@
 const totalTimeKey = "totalRedditTime";
 const noTimeYetMessage = "nothing yet";
+const dynamicUpdateCommand = "dynamicUpdate";
 
 const totalDisplayEl = document.getElementById("total-time-display");
+
+chrome.runtime.onMessage.addListener((message) => { 
+  if (message.command == dynamicUpdateCommand) {
+    main();
+  }
+});
 
 function getStoredTotalTime() {
   return new Promise((resolve, reject) => {
