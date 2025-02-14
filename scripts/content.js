@@ -57,6 +57,16 @@ async function startActiveTracking() {
           await setStoredTime(totalTime);
           console.log(totalTime);
           chrome.runtime.sendMessage({command: dynamicUpdateCommand})
+            .catch((error) => {
+              if (error.message == "Could not establish connection. Receiving end does not exist.") {
+                // do nothing: this is occurs when the pop-up window is not open and therefore
+                // the listener on script.js is not operating.
+                // As such we expect this to happen and it is not a concern
+              }
+              else {
+                throw error;
+              }
+            })
         }
     }
   oneActiveInstace = false;
