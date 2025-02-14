@@ -1,4 +1,5 @@
 const totalTimeKey = "totalRedditTime";
+const dynamicUpdateCommand = "dynamicUpdate";
 
 let active = true;
 let oneActiveInstace = false;
@@ -55,6 +56,7 @@ async function startActiveTracking() {
           totalTime += 5;
           await setStoredTime(totalTime);
           console.log(totalTime);
+          chrome.runtime.sendMessage({command: dynamicUpdateCommand})
         }
     }
   oneActiveInstace = false;
