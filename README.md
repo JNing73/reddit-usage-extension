@@ -11,10 +11,15 @@
 ## Notable behavioural points
 - The time counter only runs while the current tab is active
   - Have accounted for edge cases where a user may rapidly switch to and from the active tab
+- When the pop-up window is opened it will grab the latest total logged time from chrome api storage
+  - If the pop-up window is opened while the user is on a reddit page, the display will actively update
 
-## Key concepts demonstrated
+## Key concepts demonstrated and/or learnt during this project
 - Writing and utilising asynchronous functions in javascript
-- Gracefully managing a function to only run its parent page is active
+- Using chrome api storage as opposed to generic localstorage
+- Gracefully managing a function to only run when its parent page is active
+- Using chrome.sendMessage and addListener to trigger functions
+- When to use .catch() rather than try...catch for asynchronous functions
 
 ### Additional Notes:
 Icon file generated through iOS image playground

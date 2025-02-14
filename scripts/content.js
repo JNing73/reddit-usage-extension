@@ -1,6 +1,5 @@
-console.log("Content Script Triggered Correctly");
-
 const totalTimeKey = "totalRedditTime";
+const dynamicUpdateCommand = "dynamicUpdate";
 
 let active = true;
 let oneActiveInstace = false;
@@ -57,6 +56,17 @@ async function startActiveTracking() {
           totalTime += 5;
           await setStoredTime(totalTime);
           console.log(totalTime);
+          chrome.runtime.sendMessage({command: dynamicUpdateCommand})
+            .catch((error) => {
+              if (error.message == "Could not establish connection. Receiving end does not exist.") {
+                // do nothing: this is occurs when the pop-up window is not open and therefore
+                // the listener on script.js is not operating.
+                // As such we expect this to happen and it is not a concern
+              }
+              else {
+                throw error;
+              }
+            })
         }
     }
   oneActiveInstace = false;
@@ -70,15 +80,12 @@ document.addEventListener("visibilitychange", function () {
     }
 });
 
-
 async function main() {
-  try {
     // chrome.storage.local.clear();
-    startActiveTracking();
-  }
-  catch(error) {
-    console.log(error);
-  }
+    startActiveTracking()
+      .catch((error) => {
+        console.log(error);
+      });
 }
 
 main();
