@@ -80,15 +80,12 @@ document.addEventListener("visibilitychange", function () {
     }
 });
 
-
 async function main() {
-  try {
     // chrome.storage.local.clear();
-    startActiveTracking();
-  }
-  catch(error) {
-    console.log(error);
-  }
+    startActiveTracking()
+      .catch((error) => {
+        console.log(error);
+      });
 }
 
 main();
