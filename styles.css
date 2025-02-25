@@ -14,3 +14,7 @@ body {
     flex-direction: column;
     justify-content: space-between;
 }
+
+#total-time-display {
+    text-align: center;
+}
