@@ -53,7 +53,8 @@ function generateTotalTimeMessage(totalTime) {
 }
 
 function resetTotalTime() {
-  // todo
+    chrome.storage.local.clear();
+    generateTotalTimeMessage(noTimeYetMessage);
 }
 
 async function main() {
