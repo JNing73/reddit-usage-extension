@@ -4,6 +4,8 @@ body {
     min-height: 400px;
 
     padding: 20px;
+
+    font-size: 16px;
 }
 
 #total-time-container {
@@ -17,6 +19,7 @@ body {
 
 #total-time-display {
     text-align: center;
+    font-size: 1.125rem; /* 18 px */
 }
 
 .roboto {
