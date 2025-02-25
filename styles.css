@@ -5,3 +5,12 @@ body {
 
     padding: 20px;
 }
+
+#total-time-container {
+    height: 400px;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
