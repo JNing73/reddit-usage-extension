@@ -18,3 +18,12 @@ body {
 #total-time-display {
     text-align: center;
 }
+
+.roboto {
+    font-family: "Roboto", serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    font-variation-settings:
+      "wdth" 100;
+}
